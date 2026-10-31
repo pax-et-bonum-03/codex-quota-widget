@@ -10,12 +10,12 @@
     {
       "path": "CodexQuotaWidget.dll",
       "size": 18534400,
-      "sha256": "4289872408099811ffc385bb351e48373c76e071f6864fafad9e65d79b68495c"
+      "sha256": "be5ee371d02dd4a695cdf7dfc7bd34e5b53859da51019c248cb457947eb18c50"
     },
     {
       "path": "CodexQuotaWidget.exe",
       "size": 151552,
-      "sha256": "30ddcf0eff3983cadebcd7b33b35f3d2e197d1b41cef3d16c827baa7dd87e30e"
+      "sha256": "968bba366624f8f7b23bbc60582956b6a398cae3a5ac15c4969dedd4c552d37f"
     },
     {
       "path": "CodexQuotaWidget.runtimeconfig.json",
