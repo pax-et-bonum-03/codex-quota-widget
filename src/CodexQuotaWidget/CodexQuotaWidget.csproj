@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <AssemblyName>CodexQuotaWidget</AssemblyName>
+    <Version>1.4.7</Version>
+    <PlatformTarget>x64</PlatformTarget>
+    <EnableUnsafeBinaryFormatterSerialization>false</EnableUnsafeBinaryFormatterSerialization>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Languages\*.json" />
+    <Resource Include="Fonts\*.ttf" />
+    <Resource Include="Fonts\*.otf" />
+    <None Update="Fonts\OFL-Orbitron.txt" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fonts\OFL-GlowSans.txt" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>
+
+
+

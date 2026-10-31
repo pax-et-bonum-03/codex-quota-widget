@@ -1,0 +1,20 @@
+{
+  "name": "codex-quota-widget-releases",
+  "interface": {
+    "displayName": "Codex 用量悬浮窗 / Quota Widget"
+  },
+  "plugins": [
+    {
+      "name": "codex-quota-widget",
+      "source": {
+        "source": "local",
+        "path": "./plugins/codex-quota-widget"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_USE"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Version>1.4.6</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../src/CodexQuotaWidget/Usage.cs" Link="Usage.cs" />
+    <Compile Include="../../src/CodexQuotaWidget/AccountSession.cs" Link="AccountSession.cs" />
+  </ItemGroup>
+</Project>

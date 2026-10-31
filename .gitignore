@@ -1,0 +1,19 @@
+**/bin/
+**/obj/
+.build/
+dist/
+*.pdb
+*.user
+*.suo
+.vs/
+__pycache__/
+# Personal state and credentials must never be shipped.
+**/settings.json
+**/position.json
+**/settings.json.tmp
+**/position.json.tmp
+**/auth.json
+**/install.json
+**/data/
+**/account-diagnostics*.json
+**/check-data*.json

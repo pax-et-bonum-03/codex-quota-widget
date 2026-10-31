@@ -1,0 +1,76 @@
+{
+  "appId": "codex-quota-widget",
+  "version": "1.4.7",
+  "files": [
+    {
+      "path": "CodexQuotaWidget.deps.json",
+      "size": 440,
+      "sha256": "62f8c91b86fa69dc7038c4eb41c2374fbfc7486e574f8e5ce00d5f72183f2bc3"
+    },
+    {
+      "path": "CodexQuotaWidget.dll",
+      "size": 18534400,
+      "sha256": "4289872408099811ffc385bb351e48373c76e071f6864fafad9e65d79b68495c"
+    },
+    {
+      "path": "CodexQuotaWidget.exe",
+      "size": 151552,
+      "sha256": "30ddcf0eff3983cadebcd7b33b35f3d2e197d1b41cef3d16c827baa7dd87e30e"
+    },
+    {
+      "path": "CodexQuotaWidget.runtimeconfig.json",
+      "size": 516,
+      "sha256": "148ab2f20ae7a930a6b31bc8cfe8d8ea944087b6cbde17f969103f0a942106a6"
+    },
+    {
+      "path": "Fonts/OFL-GlowSans.txt",
+      "size": 4432,
+      "sha256": "294348a0b170240633883e62548c2d3bc76306a5571a5235b2e407e0ace3b232"
+    },
+    {
+      "path": "Fonts/OFL-Orbitron.txt",
+      "size": 4434,
+      "sha256": "e0dcb396bc35a553c0d7bd8e471434444834f2d3afe91cf40aab1dffe6a75ac1"
+    },
+    {
+      "path": "language-pack.template.json",
+      "size": 3655,
+      "sha256": "6082314121e0d805ece110bfc67e6154adcb36de67c18ff02180284bc2bae642"
+    },
+    {
+      "path": "LICENSE",
+      "size": 1216,
+      "sha256": "5c6e39b5ba04e00768352d8eb24a26f6477b81cd8904979548aba9d6d2de5bb9"
+    },
+    {
+      "path": "PRIVACY.md",
+      "size": 6146,
+      "sha256": "36351dd8bb2cce82ab916dfd1a5fab21e561b8439b0ffe5a50d9503b972f7e95"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "size": 2994,
+      "sha256": "8684b7d74f6422bebd700abb1a674bb4d9244f21314d8b04b06ed8b6c523ab89"
+    },
+    {
+      "path": "使用说明.md",
+      "size": 15431,
+      "sha256": "20fed65ec5381dd680150e590d97af54163c240cb72961a123b5665ba171ad08"
+    },
+    {
+      "path": "语言包格式说明.md",
+      "size": 4874,
+      "sha256": "19c693f21c08f1931274355e6144b5aa924aaa9bb0c28321fec5d1b0c0a10de8"
+    },
+    {
+      "path": "LICENSE.zh-CN.md",
+      "size": 1665,
+      "sha256": "2c8e6374493bbcefd54a2be1b6fcea1e0748d2427d8aae3c19c64a610f30ccb7"
+    },
+    {
+      "path": "SECURITY.md",
+      "size": 5531,
+      "sha256": "7948577e66b34026c94dacbb36342d6331ac448cf09f4cb9bf8cb87cadf75357"
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+<Window x:Class="CodexQuotaWidget.MainWindow"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:CodexQuotaWidget"
+ Title="Codex 用量" Width="270" Height="50" WindowStyle="None" ResizeMode="NoResize"
+ AllowsTransparency="True" Background="Transparent" Topmost="True" ShowInTaskbar="False" ShowActivated="False"
+ FontFamily="Segoe UI, Microsoft YaHei UI" FontSize="12" Foreground="#F5EEE7"
+ TextOptions.TextFormattingMode="Ideal" TextOptions.TextRenderingMode="Auto" UseLayoutRounding="True">
+ <Window.Resources>
+  <Style x:Key="Digits" TargetType="TextBlock"><Setter Property="FontFamily" Value="Bahnschrift, Consolas"/><Setter Property="FontWeight" Value="SemiBold"/></Style>
+  <FontFamily x:Key="MiniFont">pack://application:,,,/CodexQuotaWidget;component/Fonts/#Glow Sans SC</FontFamily>
+  <FontFamily x:Key="MiniDateFont">pack://application:,,,/CodexQuotaWidget;component/Fonts/#Glow Sans SC Normal</FontFamily>
+  <Style x:Key="MiniQuota" TargetType="TextBlock"><Setter Property="FontFamily" Value="{StaticResource MiniFont}"/><Setter Property="FontWeight" Value="SemiBold"/><Setter Property="FontSize" Value="14"/><Setter Property="TextTrimming" Value="CharacterEllipsis"/></Style>
+  <Style x:Key="MiniDate" TargetType="TextBlock"><Setter Property="FontFamily" Value="{StaticResource MiniDateFont}"/><Setter Property="FontWeight" Value="Normal"/><Setter Property="FontSize" Value="11"/><Setter Property="Foreground" Value="#C6CDD4"/><Setter Property="Margin" Value="0,3,0,0"/></Style>
+  <Style TargetType="ToolTip"><Setter Property="Background" Value="#17191F"/><Setter Property="Foreground" Value="#EFD8C5"/><Setter Property="BorderBrush" Value="#70432D"/><Setter Property="Padding" Value="10,7"/></Style>
+  <Style TargetType="Button">
+   <Setter Property="Foreground" Value="#BF9B88"/><Setter Property="Background" Value="#15181D"/><Setter Property="Cursor" Value="Hand"/>
+   <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="Button"><Border x:Name="ButtonSurface" CornerRadius="8" Background="{TemplateBinding Background}" Padding="7"><ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/></Border><ControlTemplate.Triggers><Trigger Property="IsMouseOver" Value="True"><Setter TargetName="ButtonSurface" Property="Background" Value="#3A231D"/><Setter Property="Foreground" Value="#FFBB86"/></Trigger></ControlTemplate.Triggers></ControlTemplate></Setter.Value></Setter>
+  </Style>
+  <Style x:Key="FloatCard" TargetType="Border">
+   <Setter Property="Background" Value="#F015181F"/><Setter Property="BorderBrush" Value="#454C4441"/><Setter Property="BorderThickness" Value="0.7"/><Setter Property="CornerRadius" Value="12"/>
+   <Style.Triggers><DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=Grid}}" Value="True"><Setter Property="Background" Value="#EE231D20"/><Setter Property="BorderBrush" Value="#AF805040"/></DataTrigger></Style.Triggers>
+  </Style>
+  <Style x:Key="MechaMenu" TargetType="ContextMenu"><Setter Property="Background" Value="#17191F"/><Setter Property="Foreground" Value="#F4D4BF"/><Setter Property="BorderBrush" Value="#70432D"/><Setter Property="Padding" Value="4"/></Style>
+  <Style TargetType="MenuItem"><Setter Property="Padding" Value="10,7"/><Setter Property="Foreground" Value="#F4D4BF"/><Setter Property="Background" Value="#17191F"/>
+   <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="MenuItem">
+    <Grid><Border x:Name="ItemBorder" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}"><Grid><Grid.ColumnDefinitions><ColumnDefinition Width="21"/><ColumnDefinition/><ColumnDefinition Width="18"/></Grid.ColumnDefinitions><TextBlock x:Name="Check" Text="✓" Foreground="#FF7839" Visibility="Hidden"/><ContentPresenter Grid.Column="1" ContentSource="Header"/><TextBlock x:Name="Arrow" Grid.Column="2" Text="›" HorizontalAlignment="Right" Visibility="Collapsed"/></Grid></Border>
+     <Popup x:Name="PART_Popup" AllowsTransparency="True" Focusable="False" Placement="Right" HorizontalOffset="-1" IsOpen="{Binding IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}"><Border Background="#17191F" BorderBrush="#70432D" BorderThickness="1" Padding="4"><ScrollViewer CanContentScroll="True" VerticalScrollBarVisibility="Auto" MaxHeight="480"><ItemsPresenter KeyboardNavigation.DirectionalNavigation="Cycle"/></ScrollViewer></Border></Popup>
+    </Grid>
+    <ControlTemplate.Triggers><Trigger Property="IsHighlighted" Value="True"><Setter TargetName="ItemBorder" Property="Background" Value="#42251D"/></Trigger><Trigger Property="IsChecked" Value="True"><Setter TargetName="Check" Property="Visibility" Value="Visible"/></Trigger><Trigger Property="HasItems" Value="True"><Setter TargetName="Arrow" Property="Visibility" Value="Visible"/></Trigger><Trigger Property="IsSubmenuOpen" Value="True"><Setter TargetName="ItemBorder" Property="Background" Value="#42251D"/></Trigger></ControlTemplate.Triggers>
+   </ControlTemplate></Setter.Value></Setter>
+  </Style>
+ </Window.Resources>
+ <Grid x:Name="Shell" Background="Transparent" ClipToBounds="True" Cursor="SizeAll">
+  <local:MechaChrome x:Name="ArmorChrome" Width="270" Height="50" HorizontalAlignment="Center" VerticalAlignment="Top" IsHitTestVisible="False"/>
+  <Grid x:Name="Mini" Width="234" Height="38" HorizontalAlignment="Center" Margin="18,6" VerticalAlignment="Top"><Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="28"/><ColumnDefinition/></Grid.ColumnDefinitions>
+   <StackPanel><TextBlock x:Name="MiniFive" Text="5h 剩余 —" Style="{StaticResource MiniQuota}"/><TextBlock x:Name="MiniFiveResetAt" Text="—" Style="{StaticResource MiniDate}"/></StackPanel>
+   <StackPanel Grid.Column="2"><TextBlock x:Name="MiniWeek" Text="周 剩余 —" Style="{StaticResource MiniQuota}"/><TextBlock x:Name="MiniWeekResetAt" Text="—" Style="{StaticResource MiniDate}"/></StackPanel>
+  </Grid>
+  <Canvas x:Name="Full" Visibility="Collapsed" Width="584" Height="390" HorizontalAlignment="Center" VerticalAlignment="Top">
+   <Grid Canvas.Left="38" Canvas.Top="34" Width="508" Height="38"><Grid.ColumnDefinitions><ColumnDefinition Width="28"/><ColumnDefinition/><ColumnDefinition Width="176"/></Grid.ColumnDefinitions>
+    <Path Data="M 3,2 L 13,2 20,9 20,16 13,23 3,23 3,18 11,18 15,14 15,11 11,7 3,7 Z" Fill="#FF733B" Width="20" Height="24" HorizontalAlignment="Left"><Path.Effect><DropShadowEffect Color="#FF4D21" BlurRadius="14" ShadowDepth="0" Opacity="0.5"/></Path.Effect></Path>
+    <StackPanel Grid.Column="1"><TextBlock Text="CODEX" FontFamily="Bahnschrift" FontSize="19" FontWeight="SemiBold" Margin="0,-2,0,0"/><TextBlock Text="{DynamicResource scope}" FontSize="9" Foreground="#9F968D" Margin="0,1,0,0"/></StackPanel>
+    <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+     <TextBlock x:Name="Plan" Text="账户" Foreground="#DC9970" FontFamily="Consolas" FontSize="10" VerticalAlignment="Center" Margin="0,0,14,0"/>
+     <Button x:Name="RestoreButton" ToolTip="{DynamicResource placement.reset}" Width="29" Height="29" Click="RestoreClick" Margin="0,0,5,0"><Path Data="M 0,2 L 14,2 M 7,5 L 7,14 M 3,9 L 7,5 11,9" Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" StrokeThickness="1.4" Width="14" Height="15"/></Button>
+     <Button ToolTip="{DynamicResource refresh}" Width="29" Height="29" Click="RefreshClick" Margin="0,0,5,0"><Path Data="M 9,3 A 6,6 0 1 0 12,9 M 9,0 L 9,4 13,4" Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" StrokeThickness="1.4" Width="14" Height="15"/></Button>
+     <Button ToolTip="{DynamicResource menu}" Width="29" Height="29" Click="MenuClick"><Path Data="M 0,3 L 13,3 M 0,8 L 13,8" Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" StrokeThickness="1.4" Width="13" Height="12"/></Button>
+    </StackPanel>
+   </Grid>
+   <Grid Canvas.Left="28" Canvas.Top="89" Width="226" Height="242" Background="Transparent">
+    <local:QuotaDial x:Name="FiveDial" Width="224" Height="224" IsHitTestVisible="False" VerticalAlignment="Top" Margin="0,7,0,0"/>
+    <Grid IsHitTestVisible="False">
+    <Grid.RenderTransform><TransformGroup><TranslateTransform x:Name="HeroReveal"/><TranslateTransform x:Name="HeroMotion"/></TransformGroup></Grid.RenderTransform>
+    <Ellipse x:Name="CoreGlow" Width="154" Height="154" VerticalAlignment="Top" Margin="0,42,0,0" Opacity="0.35" IsHitTestVisible="False"><Ellipse.Fill><RadialGradientBrush><GradientStop Color="#68FF5022" Offset="0"/><GradientStop Color="#00FF5022" Offset="1"/></RadialGradientBrush></Ellipse.Fill></Ellipse>
+    <Viewbox Width="224" Height="224" VerticalAlignment="Top" Margin="0,7,0,0" IsHitTestVisible="False"><Canvas Width="224" Height="224" RenderTransformOrigin="0.5,0.5"><Canvas.RenderTransform><RotateTransform x:Name="FiveRotation"/></Canvas.RenderTransform><Path Data="M 13,112 A 99,99 0 0 1 62,27 M 211,112 A 99,99 0 0 1 161,198" Stroke="#A6FFAD7A" StrokeThickness="0.8"/><Ellipse Canvas.Left="109" Canvas.Top="11" Width="6" Height="6" Fill="#FFD6B8"/></Canvas></Viewbox>
+    </Grid>
+    <TextBlock Text="{DynamicResource five.label}" FontSize="11" Foreground="#D0A087" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,58,0,0"/>
+    <TextBlock x:Name="FiveValue" Text="—" Style="{StaticResource Digits}" FontSize="58" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,77,0,0"/>
+    <TextBlock Text="{DynamicResource remaining}" FontSize="10" Foreground="#AF9A8C" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,145,0,0"/>
+    <TextBlock x:Name="FiveReset" Text="等待数据" FontSize="10" Foreground="#D4B29A" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,207,0,0"/>
+    <Border Height="20" VerticalAlignment="Top" Margin="8,222,8,0" Background="#DC14171F" CornerRadius="6"><TextBlock x:Name="FiveResetAt" Text="重置时间未提供" FontSize="9.5" Foreground="#C49B80" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+   </Grid>
+   <Grid Canvas.Left="282" Canvas.Top="91" Width="264" Height="126" Background="Transparent">
+    <Border x:Name="WeekCard" Style="{StaticResource FloatCard}" IsHitTestVisible="False"><Border.RenderTransform><TransformGroup><TranslateTransform x:Name="WeekReveal"/><TranslateTransform x:Name="WeekMotion"/></TransformGroup></Border.RenderTransform></Border>
+    <Canvas>
+     <local:QuotaDial x:Name="WeekDial" Canvas.Left="7" Canvas.Top="10" Width="84" Height="84" IsHitTestVisible="False"/>
+     <Viewbox Canvas.Left="7" Canvas.Top="10" Width="84" Height="84" IsHitTestVisible="False"><Canvas Width="132" Height="132" RenderTransformOrigin="0.5,0.5"><Canvas.RenderTransform><RotateTransform x:Name="WeekRotation"/></Canvas.RenderTransform><Path Data="M 6,66 A 60,60 0 0 1 36,14 M 126,66 A 60,60 0 0 1 96,118" Stroke="#DD965F" StrokeThickness="0.9"/></Canvas></Viewbox>
+     <TextBlock Canvas.Left="7" Canvas.Top="42" Width="84" Text="7D" FontFamily="Bahnschrift" FontSize="16" TextAlignment="Center" Foreground="#E6AD83"/>
+     <TextBlock Canvas.Left="108" Canvas.Top="13" Width="136" Text="{DynamicResource week.label}" Foreground="#C5B2A3" FontSize="10" TextTrimming="CharacterEllipsis"/>
+     <TextBlock x:Name="WeekValue" Canvas.Left="107" Canvas.Top="30" Text="—" Style="{StaticResource Digits}" FontSize="38"/>
+     <TextBlock x:Name="WeekReset" Canvas.Left="109" Canvas.Top="77" Width="139" Text="等待数据" FontSize="10.5" Foreground="#C5A48C" TextTrimming="CharacterEllipsis"/>
+     <TextBlock x:Name="WeekResetAt" Canvas.Left="16" Canvas.Top="105" Width="232" Text="重置时间未提供" FontSize="9.5" Foreground="#C49B80" TextTrimming="CharacterEllipsis"/>
+     <Path Data="M 244,12 L 251,12 251,19" Stroke="#AC623E" StrokeThickness="1"/>
+    </Canvas>
+   </Grid>
+   <Grid Canvas.Left="282" Canvas.Top="236" Width="126" Height="94" Background="Transparent">
+    <Border x:Name="TodayCard" Style="{StaticResource FloatCard}" IsHitTestVisible="False"><Border.RenderTransform><TransformGroup><TranslateTransform x:Name="TodayReveal"/><TranslateTransform x:Name="TodayMotion"/></TransformGroup></Border.RenderTransform></Border>
+    <Grid Margin="13,10"><TextBlock Text="{DynamicResource today.label}" Foreground="#BDA99C" FontSize="10" VerticalAlignment="Top" TextTrimming="CharacterEllipsis"/><TextBlock x:Name="TodayValue" Text="—" Style="{StaticResource Digits}" FontSize="29" VerticalAlignment="Top" Margin="0,22,0,0" Foreground="#F9D7B8" TextTrimming="CharacterEllipsis"/><TextBlock x:Name="TodayNote" Text="官方每日统计" Foreground="#AF8062" FontSize="9.5" VerticalAlignment="Bottom" TextTrimming="CharacterEllipsis"/></Grid>
+   </Grid>
+   <Grid Canvas.Left="420" Canvas.Top="236" Width="126" Height="94" Background="Transparent">
+    <Border x:Name="LifetimeCard" Style="{StaticResource FloatCard}" IsHitTestVisible="False"><Border.RenderTransform><TransformGroup><TranslateTransform x:Name="LifetimeReveal"/><TranslateTransform x:Name="LifetimeMotion"/></TransformGroup></Border.RenderTransform></Border>
+    <Grid Margin="13,10"><TextBlock Text="{DynamicResource lifetime.label}" Foreground="#BDA99C" FontSize="10" VerticalAlignment="Top" TextTrimming="CharacterEllipsis"/><TextBlock x:Name="LifetimeValue" Text="—" Style="{StaticResource Digits}" FontSize="29" VerticalAlignment="Top" Margin="0,22,0,0" Foreground="#F9D7B8" TextTrimming="CharacterEllipsis"/><TextBlock x:Name="LifetimeNote" Text="官方账户历史累计" Foreground="#AF8062" FontSize="9.5" VerticalAlignment="Bottom" TextTrimming="CharacterEllipsis"/></Grid>
+   </Grid>
+   <Grid Canvas.Left="40" Canvas.Top="343" Width="484" Height="23"><TextBlock x:Name="Status" Text="正在连接 Codex…" FontSize="9" Foreground="#A99A8B" TextTrimming="CharacterEllipsis" Width="340" HorizontalAlignment="Left"/><TextBlock Text="{DynamicResource fold.hint}" Foreground="#817369" FontSize="8" HorizontalAlignment="Right"/></Grid>
+  </Canvas>
+  <local:TelemetrySweep x:Name="HudSweep" IsHitTestVisible="False" Visibility="Collapsed"/>
+ </Grid>
+</Window>

@@ -1,0 +1,40 @@
+{
+  "name": "codex-quota-widget",
+  "version": "1.1.6",
+  "description": "面向 ChatGPT Plus 深度定制的 Windows 用量悬浮窗。\n\nA Windows Codex quota widget deeply tailored to ChatGPT Plus users.",
+  "author": {
+    "name": "suqi456"
+  },
+  "keywords": [
+    "codex",
+    "quota",
+    "usage",
+    "windows",
+    "悬浮窗",
+    "限额"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Codex 用量悬浮窗 / Quota Widget",
+    "shortDescription": "Plus 用量窗 / Plus quota widget",
+    "longDescription": "面向 ChatGPT Plus 用户深度定制的 Windows x64 置顶悬浮工具，需 .NET 8 Desktop Runtime 和已登录的 Codex。显示 5h/周剩余额度、恢复时间及今日/累计 token；支持拖动复原、三种语言、自定义语言包与可选开机启动。\n\nA Windows x64 Codex usage widget deeply tailored to ChatGPT Plus users. Requires .NET 8 Desktop Runtime and an active Codex login. Shows remaining 5-hour/weekly quotas, reset times, and daily/lifetime tokens. Supports dragging, position reset, three languages, custom language packs, and optional startup at sign-in. Independent project, unaffiliated with OpenAI.",
+    "developerName": "suqi456",
+    "category": "Productivity",
+    "brandColor": "#FF6B32",
+    "composerIcon": "./assets/quota-widget.svg",
+    "logo": "./assets/quota-widget.svg",
+    "defaultPrompt": [
+      "启动 Codex 用量悬浮窗 / Start the Codex quota widget",
+      "检查悬浮窗状态 / Check the widget status",
+      "关闭悬浮窗 / Stop the widget"
+    ],
+    "capabilities": [],
+    "screenshots": [
+      "./assets/zh-CN-collapsed.png",
+      "./assets/zh-CN-expanded.png",
+      "./assets/en-collapsed.png",
+      "./assets/en-expanded.png"
+    ]
+  },
+  "license": "MIT"
+}

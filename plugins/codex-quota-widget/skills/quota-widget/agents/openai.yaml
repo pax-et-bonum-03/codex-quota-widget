@@ -1,0 +1,4 @@
+interface:
+  display_name: "Codex 用量悬浮窗 / Quota Widget"
+  short_description: "管理 Plus 用量悬浮窗 / Manage the Plus usage widget"
+  default_prompt: "使用 $quota-widget 启动并检查悬浮窗。 Use $quota-widget to start the widget and check its status."
